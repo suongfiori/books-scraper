@@ -4,10 +4,10 @@ const { getGenreParam, genres } = require('./paramGenerator')
 const { scrapeBooks } = require('./scraper')
 const { writeCsv } = require('./csvWriter')
 
+getGenreParam()
+
 // PORT = 0
 const PORT = process.env.PORT || 8000
-
-getGenreParam()
 
 app.get('/', (req, res) => {
     res.json('Welcome to Books Scraper API')
