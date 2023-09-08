@@ -3,8 +3,9 @@ const cheerio = require('cheerio');
 
 const BASE_URL = "https://books.toscrape.com/catalogue/category/books_1/index.html"
 
+const genres = []
+
 async function getGenreParam() {
-    
     const genreParams = {}
 
     try {
@@ -18,6 +19,7 @@ async function getGenreParam() {
             const match = param.match(/\/([^/]+)\/index\.html$/)
             if (match) {
                 genreParams[genre] = match[1]
+                genres.push(genre)
             }
         })
 
@@ -27,4 +29,4 @@ async function getGenreParam() {
     return genreParams
 }
 
-module.exports = { getGenreParam }
+module.exports = { getGenreParam, genres }

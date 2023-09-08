@@ -1,24 +1,34 @@
 const express = require('express')
 const app = express()
-const { getGenreParam } = require('./paramGenerator')
+const { getGenreParam, genres } = require('./paramGenerator')
 const { scrapeBooks } = require('./scraper')
 const { writeCsv } = require('./csvWriter')
 
+// PORT = 0
+const PORT = process.env.PORT || 8000
 
-const PORT = process.env.PORT || 5000
+getGenreParam()
+
+app.get('/', (req, res) => {
+    res.json('Welcome to Books Scraper API')
+})  
 
 app.get("/books", async (req, res) => {
+    res.json(genres)
+})
+
+app.get("/books/:genre", async (req, res) => {
     try {
-        const genre = req.query.genre
+        const genre = req.params.genre
 
-        const params = await getGenreParam()
-        const param = params[genre]
+        const specificParams = await getGenreParam()
+        const specificParam = specificParams[genre]
 
-        if (!param) {
+        if (!specificParam) {
             return res.status(400).json({ error: 'Invalid genre parameter.' })
         }
 
-        const scrapedData = await scrapeBooks(param)
+        const scrapedData = await scrapeBooks(specificParam)
         await writeCsv(genre, scrapedData)
 
         const totalItems = scrapedData.length
