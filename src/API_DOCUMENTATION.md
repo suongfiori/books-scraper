@@ -1,78 +1,71 @@
-## Books Scraper API Documentation
+# Node.js Books Scraper API
 
-### Base URL
-```
-https://api.books-scraper.com
-```
+## Introduction
 
-### Endpoints
+The Node.js Books Scraper API allows you to retrieve fictional book data, including genres, titles, prices, stock availability, and more. It provides two main endpoints to access this data.
 
-#### GET /books
+- Base URL: `https://confused-threads-cod.cyclic.cloud/`
 
-##### Description
-Retrieve a list of books based on genre.
+## Endpoints
 
-##### Parameters
-- `genre` (string, required): The genre of books to retrieve.
+### 1. Get All Genres
 
-##### Example Request
-```
-GET https://api.books-scraper.com/books?genre=mystery
-```
+- **Endpoint**: `/books`
+- **Method**: GET
+- **Description**: This endpoint returns an array of available book genres.
 
-##### Example Response
-```json
-{
-  "status": "success",
-  "data": [
-    {
-      "title": "The Hound of the Baskervilles",
-      "author": "Arthur Conan Doyle",
-      "price": "$12.99",
-      "availability": "In Stock"
-    },
-    // ... other books in the genre
-  ],
-  "metadata": {
-    "genre": "mystery",
-    "total_items": 20,
-    "total_pages": 2
-  }
-}
-```
+#### Example
 
-##### Error Response
-- Status: 400 Bad Request
-- Response:
-```json
-{
-  "error": "Invalid genre parameter."
-}
-```
+- **Request**:
+  ```http
+  GET https://confused-threads-cod.cyclic.cloud/books
+  ```
 
-#### Supported Genres
-
-##### Description
-Retrieve a list of supported genres.
-
-##### Example Request
-```
-GET https://api.books-scraper.com/supported-genres
-```
-
-##### Example Response
-```json
-{
-  "genres": [
+- **Response**:
+  ```json
+  [
+    "fiction",
     "mystery",
     "romance",
-    "fantasy",
-    // ... other supported genres
+    ...
   ]
-}
-```
+  ```
 
-### Authentication
-No authentication is required to use this API.
+### 2. Get Books by Genre
 
----
+- **Endpoint**: `/books/:genre`
+- **Method**: GET
+- **Description**: This endpoint allows you to retrieve a list of books for a specific genre.
+
+#### Example
+
+- **Request**:
+  ```http
+  GET https://confused-threads-cod.cyclic.cloud/books/fiction
+  ```
+
+- **Response**:
+  ```json
+  {
+    "status": "success",
+    "data": [
+      {
+        "title": "Book Title",
+        "author": "Author Name",
+        "price": "$19.99",
+        "availability": "In stock",
+        ...
+      },
+      ...
+    ],
+    "metadata": {
+      "genre": "fiction",
+      "total_items": 20,
+      "total_pages": 2
+    }
+  }
+  ```
+
+## Getting Started
+
+To use this API, make HTTP requests to the provided endpoints. 
