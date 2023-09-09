@@ -66,6 +66,10 @@ The Node.js Books Scraper API allows you to retrieve fictional book data, includ
   }
   ```
 
+## Data Source
+
+The data provided by this API is sourced from [Books to Scrape](https://books.toscrape.com/), a fictional book store used for web scraping practice.
+
 ## Getting Started
 
 To use this API, make HTTP requests to the provided endpoints. 
